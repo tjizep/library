@@ -11,7 +11,7 @@ public abstract class HashMapRepository<T, ID> implements CrudRepository<T, ID> 
 
     Map<ID, T> entities = new HashMap<>();
 
-    abstract <S extends T> ID getEntityId(S entity);
+    protected abstract <S extends T> ID getEntityId(S entity);
 
     @Override
     public <S extends T> S save(S entity) {

@@ -1,28 +1,15 @@
 package org.booklibrary.api;
 
-import org.booklibrary.configuration.HomeController;
 import org.booklibrary.entity.PersistedBook;
 import org.booklibrary.mapper.PersistedBookMapper;
 import org.booklibrary.model.Book;
 import org.booklibrary.model.Borrow;
-import org.booklibrary.repository.OrderRepository;
+import org.booklibrary.repository.BookRepositoryInterface;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
 
-import javax.persistence.EntityManagerFactory;
-import javax.swing.text.html.parser.Entity;
-
-//@WebMvcTest(HomeController.class)
-class BookApiControllerTest {
-    //@Autowired
-    //private MockMvc mockMvc;
-
-    @Test
-    void getDelegate() {
-    }
+class BookApiControllerTest
+{
     @Test
     void addOrder(){
         Borrow b = new Borrow();
@@ -32,7 +19,9 @@ class BookApiControllerTest {
         //orders.save(b);
     }
     @Test
-    void addBook() throws Exception {
+    void addBook()  {
+        BookRepositoryInterface repository = new TestBookRepo();
+        BookApiDelegate delegate = new BookApiDelegateImpl(repository, null);
         org.booklibrary.model.Book book = new org.booklibrary.model.Book();
         book.setIsbn("9784139697805");
         book.setTitle("The Hobbit");
@@ -41,7 +30,7 @@ class BookApiControllerTest {
         book.setAuthor("JRR Tolkien");
 
         PersistedBook pb= PersistedBookMapper.toEntity(book);
-        //mockMvc.perform(get("/v1/book/")).andDo(print()).andExpect(status().isOk());
+        delegate.addBook(book);
     }
 
     @Test

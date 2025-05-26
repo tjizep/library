@@ -17,14 +17,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers()
-                .antMatchers(apiBasePath + "/book1")
-                .antMatchers(apiBasePath + "/book1/findByStatus")
-                .antMatchers(HttpMethod.POST, apiBasePath + "/book1/**")
+        http.authorizeRequests().anyRequest().authenticated();
+        /*http.requestMatchers()
+                .antMatchers(apiBasePath + "/nbook")
+                .antMatchers(apiBasePath + "/nbook/findByStatus")
+                .antMatchers(HttpMethod.POST, apiBasePath + "/book/**")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .anyRequest().access("#oauth2.hasScope('write:books') and #oauth2.hasScope('read:books')");
+                .anyRequest().access("#oauth2.hasScope('write:books') and #oauth2.hasScope('read:books')");*/
     }
 }

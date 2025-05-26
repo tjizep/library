@@ -1,25 +1,20 @@
-package org.booklibrary.repository;
+package org.booklibrary.api;
 
 import org.booklibrary.entity.PersistedBook;
-import org.booklibrary.model.Book;
+import org.booklibrary.repository.BookRepositoryInterface;
+import org.booklibrary.repository.HashMapRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Repository
-public class BookRepository extends JpaEntityRepository<PersistedBook, Long> implements BookRepositoryInterface {
-
+public class TestBookRepo extends HashMapRepository<PersistedBook, Long> implements BookRepositoryInterface{
     private Long sequenceId = 1L;
 
-    protected BookRepository() {
-        super(PersistedBook.class);
+    protected TestBookRepo() {
     }
 
-    @Override
-    protected <S extends PersistedBook> Long getEntityId(S book) {
+    protected Long getEntityId(PersistedBook book){
         return book.getId();
-    }
+    };
     private static boolean validateISBN(PersistedBook b){
 
         return true;

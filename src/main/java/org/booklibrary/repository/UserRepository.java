@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class UserRepository extends HashMapRepository<User, String> {
 
     @Override
-    <S extends User> String getEntityId(S user) {
+    protected <S extends User> String getEntityId(S user) {
         return user.getUsername();
     }
 

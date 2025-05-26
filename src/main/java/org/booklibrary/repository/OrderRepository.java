@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 public class OrderRepository extends HashMapRepository<Borrow, Long> {
 
     @Override
-    <S extends Borrow> Long getEntityId(S order) {
+    protected <S extends Borrow> Long getEntityId(S order) {
         return order.getId();
     }
 

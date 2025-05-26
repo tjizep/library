@@ -5,6 +5,8 @@ import org.booklibrary.entity.PersistedBook;
 import org.booklibrary.mapper.PersistedBookMapper;
 import org.booklibrary.model.*;
 import org.booklibrary.repository.BookRepository;
+import org.booklibrary.repository.BookRepositoryInterface;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,15 @@ import java.util.stream.Collectors;
 @Service
 public class BookApiDelegateImpl implements BookApiDelegate {
 
-    private final BookRepository bookRepository;
+    private final BookRepositoryInterface bookRepository;
 
     private final NativeWebRequest request;
 
-    public BookApiDelegateImpl(BookRepository bookRepository, NativeWebRequest request) {
+    public BookApiDelegateImpl(BookRepositoryInterface bookRepository, NativeWebRequest request) {
         this.bookRepository = bookRepository;
         this.request = request;
     }
+
     private static boolean validateISBN(Book book){
         String isbn = book.getIsbn();
         if (isbn == null || isbn.length() != 13) {
@@ -124,7 +127,7 @@ public class BookApiDelegateImpl implements BookApiDelegate {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status: " + s))
                 )
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(bookRepository.findBooksByStatus(statusEnums).stream().map(PersistedBookMapper::toDto).collect(Collectors.toList()));
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
     @Override
