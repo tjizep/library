@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
-public class BookApiDelegateImpl implements BookApiDelegate {
+public class BookApiDelegateImpl implements BooksApiDelegate {
 
     private final BookRepositoryInterface bookRepository;
 
@@ -74,6 +74,11 @@ public class BookApiDelegateImpl implements BookApiDelegate {
         return isbn.substring(0, 3) + sep + isbn.substring(3, 4) + sep +
                 isbn.substring(4, 8) + sep + isbn.substring(8, 12) + sep + isbn.charAt(12);
     }
+    private static boolean isBlank(String value){
+        if(value == null)
+            return true;
+        return value.trim().isEmpty();
+    }
     private static String createIsbn(){
         return createIsbn(false);
     }
@@ -113,6 +118,12 @@ public class BookApiDelegateImpl implements BookApiDelegate {
     @Override
     public ResponseEntity<Void> addBook(Book book) {
         if(!validateISBN(book)){
+            return ResponseEntity.badRequest().build();
+        }
+        if (isBlank(book.getAuthor())) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (isBlank(book.getTitle())) {
             return ResponseEntity.badRequest().build();
         }
         bookRepository.save(PersistedBookMapper.toEntity(book));

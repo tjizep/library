@@ -17,7 +17,7 @@ tags:
 - name: user
   description: Operations about user
 paths:
-  /book:
+  /books:
     put:
       tags:
       - book
@@ -54,7 +54,7 @@ paths:
       x-tags:
       - tag: book
       x-contentType: application/json
-  /book/findByStatus:
+  /books/findByStatus:
     get:
       tags:
       - book
@@ -97,7 +97,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: book
-  /book/findByAuthor:
+  /books/findByAuthor:
     get:
       tags:
       - book
@@ -139,7 +139,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: book
-  /book/{bookId}:
+  /books/{bookId}:
     get:
       tags:
       - book
@@ -238,7 +238,7 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: book
-  /book/{bookId}/uploadImage:
+  /books/{bookId}/uploadImage:
     post:
       tags:
       - book

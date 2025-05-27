@@ -21,7 +21,7 @@ class BookApiControllerTest
     @Test
     void addBook()  {
         BookRepositoryInterface repository = new TestBookRepo();
-        BookApiDelegate delegate = new BookApiDelegateImpl(repository, null);
+        BooksApiDelegate delegate = new BookApiDelegateImpl(repository, null);
         org.booklibrary.model.Book book = new org.booklibrary.model.Book();
         book.setIsbn("9784139697805");
         book.setTitle("The Hobbit");
